@@ -179,7 +179,7 @@ const AdminUsers = () => {
                 </Button>
               </DialogClose>
               <Button type="submit" onClick={addUser}>
-                Save changes
+                Add user
               </Button>
             </DialogFooter>
           </DialogContent>
