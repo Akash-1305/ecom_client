@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogClose,
@@ -14,7 +14,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 
 import {
   AlertDialog,
@@ -25,19 +25,19 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { Pencil, Plus, Trash } from "lucide-react"
-import { useState, useEffect } from "react"
-import { allUsers } from "@/api/api"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/alert-dialog";
+import { Pencil, Plus, Trash } from "lucide-react";
+import { useState, useEffect } from "react";
+import { addUser, allUsers } from "@/api/api";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 const AdminUsers = () => {
-  const [addOpen, setAddOpen] = useState(false)
-  const [editOpen, setEditOpen] = useState(false)
-  const [deleteOpen, setDeleteOpen] = useState(false)
-  const [users, setUsers] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
+  const [addOpen, setAddOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [users, setUsers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -62,7 +62,15 @@ const AdminUsers = () => {
           <h2 className="font-bold ">Users</h2>
         </div>
         <div className="w-1/2 flex justify-end items-center">
-          <Button variant='outline' className="border-2 border-green-500 text-green-500" onClick={() => { setAddOpen(true) }}><Plus className="h-8 w-8 mr-2" /> Add User</Button>
+          <Button
+            variant="outline"
+            className="border-2 border-green-500 text-green-500"
+            onClick={() => {
+              setAddOpen(true);
+            }}
+          >
+            <Plus className="h-8 w-8 mr-2" /> Add User
+          </Button>
         </div>
       </div>
       <Table className="w-full bg-gray-50 p-4 rounded-md">
@@ -79,23 +87,41 @@ const AdminUsers = () => {
         </TableHeader>
         <TableBody>
           {loading ? (
-            <TableRow><TableCell colSpan={7}>Loading...</TableCell></TableRow>
+            <TableRow>
+              <TableCell colSpan={7}>Loading...</TableCell>
+            </TableRow>
           ) : users.length === 0 ? (
-            <TableRow><TableCell colSpan={7}>No users found.</TableCell></TableRow>
+            <TableRow>
+              <TableCell colSpan={7}>No users found.</TableCell>
+            </TableRow>
           ) : (
             users.map((user, idx) => (
               <TableRow key={user.id || idx}>
-                <TableCell className="font-medium">{user.name || "-"}</TableCell>
+                <TableCell className="font-medium">
+                  {user.name || "-"}
+                </TableCell>
                 <TableCell>{user.email || "-"}</TableCell>
                 <TableCell>{user.phone || "-"}</TableCell>
                 <TableCell>{user.street || "-"}</TableCell>
                 <TableCell>{user.city || "-"}</TableCell>
                 <TableCell>{user.zip || "-"}</TableCell>
                 <TableCell className="flex flex-row gap-2 px-2 justify-end">
-                  <Button className="border-2 border-blue-600 cursor-pointer" variant='outline' onClick={() => { setEditOpen(true) }}>
+                  <Button
+                    className="border-2 border-blue-600 cursor-pointer"
+                    variant="outline"
+                    onClick={() => {
+                      setEditOpen(true);
+                    }}
+                  >
                     <Pencil className="h-8 w-8 text-blue-600" />
                   </Button>
-                  <Button className="border-2 border-red-600 cursor-pointer" variant='outline' onClick={() => { setDeleteOpen(true) }}>
+                  <Button
+                    className="border-2 border-red-600 cursor-pointer"
+                    variant="outline"
+                    onClick={() => {
+                      setDeleteOpen(true);
+                    }}
+                  >
                     <Trash className="h-8 w-8 text-red-600" />
                   </Button>
                 </TableCell>
@@ -143,14 +169,22 @@ const AdminUsers = () => {
             </div>
             <DialogFooter>
               <DialogClose asChild>
-                <Button variant="outline" onClick={() => { setAddOpen(false) }}>Cancel</Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setAddOpen(false);
+                  }}
+                >
+                  Cancel
+                </Button>
               </DialogClose>
-              <Button type="submit">Save changes</Button>
+              <Button type="submit" onClick={addUser}>
+                Save changes
+              </Button>
             </DialogFooter>
           </DialogContent>
         </form>
       </Dialog>
-
 
       <Dialog open={editOpen}>
         <form>
@@ -190,14 +224,20 @@ const AdminUsers = () => {
             </div>
             <DialogFooter>
               <DialogClose asChild>
-                <Button variant="outline" onClick={() => { setEditOpen(false) }}>Cancel</Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setEditOpen(false);
+                  }}
+                >
+                  Cancel
+                </Button>
               </DialogClose>
               <Button type="submit">Save changes</Button>
             </DialogFooter>
           </DialogContent>
         </form>
       </Dialog>
-
 
       <AlertDialog open={deleteOpen}>
         <AlertDialogContent>
@@ -209,13 +249,19 @@ const AdminUsers = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => { setDeleteOpen(false) }}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel
+              onClick={() => {
+                setDeleteOpen(false);
+              }}
+            >
+              Cancel
+            </AlertDialogCancel>
             <AlertDialogAction>Delete</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
     </div>
-  )
-}
+  );
+};
 
-export default AdminUsers
+export default AdminUsers;
